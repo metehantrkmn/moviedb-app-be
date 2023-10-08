@@ -69,7 +69,8 @@ public class JwtFilter extends OncePerRequestFilter {
             if(jwtService.isTokenValid(tokenString,user) && !token.isRevoked() && user.isEnabled()){
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                   user.getUsername(),
-                  user.getPassword()
+                  user.getPassword(),
+                        null
                 );
 
                 authToken.setDetails(
