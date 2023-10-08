@@ -60,6 +60,7 @@ public class JwtService {
     }
 
     //generates token with claims
+    //expires 24 minutes later
     public String generateToken(Map<String,Object> extraClaims, UserDetails userDetails){
         return Jwts.
                 builder().

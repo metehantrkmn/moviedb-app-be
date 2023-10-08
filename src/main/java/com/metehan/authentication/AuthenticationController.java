@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -60,9 +61,11 @@ public class AuthenticationController {
     }
 
     @GetMapping("/api/v1/verify")
-    public ResponseEntity verifyEmail(@RequestParam String token){
+    public ModelAndView verifyEmail(@RequestParam String token){
         emailService.verifyEmail(token);
-        return ResponseEntity.ok("Email verified");
+        //return ResponseEntity.ok("Email verified");
+        String projectUrl = "https://www.google.com.tr/?hl=tr";
+        return new ModelAndView("redirect:" + projectUrl);
     }
 
 }
