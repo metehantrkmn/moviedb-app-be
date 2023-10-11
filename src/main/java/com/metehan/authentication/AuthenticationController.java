@@ -30,7 +30,7 @@ public class AuthenticationController {
         String token = authenticationService.login(body);
         return ResponseEntity
                 .ok()
-                .header("Set-Cookie","token="+token+"; HttpOnly")
+                .header("Authorization","Bearer "+token)
                 .body(null);
     }
 
@@ -38,7 +38,7 @@ public class AuthenticationController {
     public ResponseEntity register(@RequestBody RegisterDto body){
         return ResponseEntity
                 .ok()
-                .header("Set-Cookie","token="+authenticationService.register(body)+"; HttpOnly")
+                .header("Authorization","Bearer "+authenticationService.register(body))
                 .body(null);
     }
 

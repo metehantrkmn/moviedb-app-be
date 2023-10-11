@@ -27,11 +27,8 @@ public class CustomLogoutHandler implements LogoutHandler {
         //revoke token object got from database
         //save(update) the token to database
 
-        String tokenString = Arrays.stream(request.getCookies())
-                .filter((cookie -> cookie.getName().equals("token")))
-                .findFirst()
-                .orElseThrow()
-                .getValue();
+        String tokenString = request.getHeader("Authorization").substring(7);
+
 
         Token token = tokenRepository.findTokenByToken(tokenString).orElseThrow();
 

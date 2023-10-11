@@ -1,5 +1,6 @@
 package com.metehan.config;
 
+import com.metehan.authentication.jwtToken.Token;
 import com.metehan.authentication.jwtToken.TokenRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -26,7 +27,11 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
             filterChain.doFilter(request,response);
         }catch (ExpiredJwtException ex){
             System.out.println("expired jwt exception occured during filter execution");
-            response.setHeader("Set-Cookie","token=");
+            //set token revoked = true if expired
+            Token token = tokenRepository.findTokenByToken(
+                    request.getHeader("Authorizaiton").substring(7)
+            ).get();
+            response.setHeader("Authorization","Bearer ");
             response.setStatus(403);
         }
     }
