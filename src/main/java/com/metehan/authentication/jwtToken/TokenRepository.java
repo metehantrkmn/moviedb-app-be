@@ -16,4 +16,15 @@ public interface TokenRepository extends CrudRepository<Token,Integer> {
             select t from Token t where t.user.id=:id and t.revoked=false
             """, nativeQuery = false)
     List<Token> getActiveTokens(@Param("id") Integer id);
+
+    @Query(value = """
+            select t from Token t where t.revoked=true
+            """, nativeQuery = false)
+    List<Token> getRevokedTokens();
+
+    /*@Query(value = """
+            delete from Token t where t.revoked=true
+            """, nativeQuery = false)
+    void deleteRevokedTokens();*/
+    long removeTokenByRevoked(boolean bool);
 }

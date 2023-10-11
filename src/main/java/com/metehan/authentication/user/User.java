@@ -1,11 +1,14 @@
 package com.metehan.authentication.user;
 
+import com.metehan.authentication.confirmationToken.ConfirmationToken;
 import com.metehan.authentication.jwtToken.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,8 +28,12 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Token> tokens;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<ConfirmationToken> confirmationTokens;
     private boolean enabled;
 
 

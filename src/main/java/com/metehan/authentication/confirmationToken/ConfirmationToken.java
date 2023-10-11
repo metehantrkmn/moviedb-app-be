@@ -27,6 +27,9 @@ public class ConfirmationToken {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expirationDate;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

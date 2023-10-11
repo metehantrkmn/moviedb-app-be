@@ -75,6 +75,8 @@ public class EmailService {
                 .createdDate(new Date())
                 .user(userRepository.findUserByEmail(email).get())
                 .build();
+        token.setExpirationDate(token.calculateExpirationDate());
+
         confirmationTokenRepository.save(token);
         return generatedString;
     }
